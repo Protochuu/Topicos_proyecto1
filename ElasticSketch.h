@@ -10,12 +10,14 @@ struct ElasticSketchBucket {
 	uint64_t negative_count = 0;
 };
 
+template<size_t W, size_t D>
 class ElasticSketch {
 private:
-	std::unordered_map<std::string, ElasticSketchBucket, 0> table;
-	CountMinCU count_min_sketch;
+	etl::unordered_map<std::string, ElasticSketchBucket, W> table;
+	CountMinCU<W, D> count_min_sketch;
 
 public:
 	void increment_count(std::string element);
 	uint64_t retrieve_count(std::string element);
 };
+

@@ -13,12 +13,12 @@ uint64_t CountMinCU::hash(std::string key, int seed){
 	return out % cols;
 }
 
-CountMinCU::CountMinCU(int d, int w){
-	this->freqs = std::vector<std::vector<uint64_t>>(d, std::vector<uint64_t>(w, 0));
-
-	this->rows = d;
-	this->cols = w;
-}
+// CountMinCU::CountMinCU(int d, int w){
+// 	this->freqs = std::vector<std::vector<uint64_t>>(d, std::vector<uint64_t>(w, 0));
+// 
+// 	this->rows = d;
+// 	this->cols = w;
+// }
 
 void CountMinCU::increment_count(std::string element){
 	int min_i = 0;
