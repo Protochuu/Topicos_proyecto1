@@ -14,8 +14,8 @@ private:
 
 	uint64_t hash(std::string key, int seed);
 public:
-	void increment_count(int element);
-	uint64_t retrieve_count(int element);
+	void increment_count(string element);
+	uint64_t retrieve_count(string element);
     void set_count(std::string element, uint64_t count);
 };
 
