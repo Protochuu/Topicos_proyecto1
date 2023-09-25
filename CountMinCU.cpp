@@ -3,7 +3,7 @@
 #include <string>
 
 #include "CountMinCU.h"
-#include "MurMurhash3.h"
+#include "Murmurhash3.h"
 
 template <size_t W, size_t D>
 uint64_t CountMinCU<W, D>::hash(std::string key, int seed){
@@ -52,7 +52,7 @@ template <size_t W, size_t D>
 uint64_t CountMinCU<W, D>::retrieve_count(std::string element){
 	uint64_t min_value = freqs[0][this->hash(element, 0)];
 
-	for(int i = 0; i < this->cols; i++)
+	for(int i = 0; i < this->cols; i++){
 		int count = freqs[i][this->hash(element, i)];
 
 		if (count < min_value){
