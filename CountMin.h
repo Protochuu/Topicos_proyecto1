@@ -1,20 +1,25 @@
 #include <vector>
 #include <string>
 
-using namespace std;
+#include "Sketch.h"
+
 #ifndef CountMin
 #define CountMin
 
-class CountMinSketch{
-    private:
+using namespace std;
+
+class CountMinSketch : Sketch {
+private:
     vector<vector<int>> freq_matrix;
     int row_len;
     int col_len;
 
-    public:
+public:
     CountMinSketch(int d, int w);
+
     void increment_count(string element);
-    int retrieve_count(string element);
+    uint64_t retrieve_count(string element);
+
     int hash(string key, int seed);
 };
 #endif
