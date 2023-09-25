@@ -1,4 +1,5 @@
 #include <MurmurHash3.h>
+#include "CountMin.h"
 
 #include <iostream>
 
