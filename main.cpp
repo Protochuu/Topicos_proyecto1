@@ -2,15 +2,21 @@
 #include "CountMin.h"
 
 #include <iostream>
+#include <fstream>
+#include <string>
 
 int main(){
-	const char *key = "Hola";
+	std::ifstream dataset;
 
-	uint64_t out;
+	dataset.open("Mendeley.txt");
 
-	MurmurHash3_x64_128(key, 4, 0, &out);
+	std::string line;
 
-	std::cout << out;
-	
+	while( getline(dataset, line) ){
+		std::cout << line << std::endl;
+	}
+
+	dataset.close();
+
 	return 0;
 }
