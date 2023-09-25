@@ -9,3 +9,5 @@ a.out
 build/
 .idea/
 *swp
+build.ninja
+.cmake
