@@ -2,6 +2,7 @@
 
 #include "CountMinCU.h"
 #include "ElasticSketch.h"
+#include "MurmurHash3.h"
 
 using namespace std;
 
@@ -16,7 +17,9 @@ ElasticSketchBucket *ElasticSketch<W,D>::get_bucket(string element){
 template <size_t W, size_t D>
 void ElasticSketch<W, D>::increment_count(string element){
     int threshold = 8;
-    ElasticSketchBucket bucket = get_bucket(element);
+
+    ElasticSketchBucket *bucket = get_bucket(element);
+
     if (bucket->is_empty){
         bucket->element= element;
         bucket->positive_count = 1;
@@ -43,7 +46,7 @@ void ElasticSketch<W, D>::increment_count(string element){
 
 template <size_t W, size_t D>
 uint64_t ElasticSketch<W, D>::retrieve_count(string element){
-    ElasticSketchBucket bucket = get_bucket(element);
+    ElasticSketchBucket *bucket = get_bucket(element);
     if ((bucket->is_empty) && (bucket->element == element)){
         return count_min_sketch.retrieve_count(element);
     }
