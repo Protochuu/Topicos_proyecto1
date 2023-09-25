@@ -3,7 +3,7 @@
 #include <string>
 
 #include "CountMinCU.h"
-#include "Murmurhash3.h"
+#include "MurmurHash3.h"
 
 template <size_t W, size_t D>
 uint64_t CountMinCU<W, D>::hash(std::string key, int seed){
