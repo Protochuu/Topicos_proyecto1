@@ -7,3 +7,5 @@ proyecto1_topicos
 proyecto1_topicos.exe
 a.out
 build/
+.idea/
+*swp
