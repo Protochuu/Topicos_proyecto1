@@ -1,3 +1,4 @@
+#include <cstring>
 #include "CountMin.h"
 #include "MurmurHash3.h"
 
@@ -23,7 +24,7 @@ void CountMinSketch::increment_count(string element){
     }
 }
 
-int CountMinSketch::retrieve_count(string element){
+uint64_t CountMinSketch::retrieve_count(string element){
     int min_value = freq_matrix[0][hash(element, 0)];
     for(int i = 0; i < this->col_len; i++){
         int current_count = freq_matrix[i][hash(element, i)];
@@ -36,7 +37,12 @@ int CountMinSketch::retrieve_count(string element){
 
     //test hash function
 int CountMinSketch::hash(string key, int seed){
-    int out;
-    MurmurHash3_x64_128(key.c_str(), key.size(), seed, &out);
-    return out%row_len;
+    uint64_t out;
+
+    char *buffer = new char[key.size() + 1];
+    strcpy(buffer, key.c_str());
+
+    MurmurHash3_x64_128(buffer, key.size(), seed, &out);
+
+    return out % row_len;
 }

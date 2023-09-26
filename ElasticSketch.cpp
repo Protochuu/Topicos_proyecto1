@@ -1,21 +1,26 @@
 #include <string>
+#include <cstring>
 
 #include "CountMinCU.h"
 #include "ElasticSketch.h"
 #include "MurmurHash3.h"
 
-using namespace std;
+ElasticSketchBucket *ElasticSketch::get_bucket(std::string element){
+    uint64_t out;
 
-template <size_t W, size_t D>
-ElasticSketchBucket *ElasticSketch<W,D>::get_bucket(string element){
-    int out;
-    MurmurHash3_x64_128(element.c_str(), element.size(), 0, &out);
-    int hash_index = out%W;
-    return &hash_table[hash_index];
+    char *buffer = new char[element.size() + 1];
+    strcpy(buffer, element.c_str());
+
+    MurmurHash3_x64_128(buffer, element.size(), 0, &out);
+
+    uint64_t hash_index = out % (this->w);
+
+    ElasticSketchBucket *bucket = &hash_table[hash_index];
+
+    return bucket;
 }
 
-template <size_t W, size_t D>
-void ElasticSketch<W, D>::increment_count(string element){
+void ElasticSketch::increment_count(const std::string element){
     int threshold = 8;
 
     ElasticSketchBucket *bucket = get_bucket(element);
@@ -44,8 +49,7 @@ void ElasticSketch<W, D>::increment_count(string element){
     }
 }
 
-template <size_t W, size_t D>
-uint64_t ElasticSketch<W, D>::retrieve_count(string element){
+uint64_t ElasticSketch::retrieve_count(std::string element){
     ElasticSketchBucket *bucket = get_bucket(element);
     if ((bucket->is_empty) && (bucket->element == element)){
         return count_min_sketch.retrieve_count(element);

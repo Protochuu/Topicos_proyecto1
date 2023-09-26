@@ -11,3 +11,5 @@ build/
 *swp
 build.ninja
 .cmake
+.ninja*
+Testing/

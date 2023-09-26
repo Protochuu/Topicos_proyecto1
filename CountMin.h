@@ -8,7 +8,7 @@
 
 using namespace std;
 
-class CountMinSketch : Sketch {
+class CountMinSketch : public Sketch {
 private:
     vector<vector<int>> freq_matrix;
     int row_len;
